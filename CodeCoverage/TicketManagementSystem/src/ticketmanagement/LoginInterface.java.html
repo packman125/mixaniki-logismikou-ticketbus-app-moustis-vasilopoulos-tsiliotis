@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>LoginInterface.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</a> &gt; <a href="../../index.html" class="el_group">TicketManagementSystem</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">ticketmanagement</a> &gt; <span class="el_source">LoginInterface.java</span></div><h1>LoginInterface.java</h1><pre class="source lang-java linenums">package ticketmanagement;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.*;
+
+<span class="fc" id="L13">public class LoginInterface implements ActionListener {</span>
+	
+	
+
+	JLabel titleLabel;
+	JTextField username,password;
+	JLabel wrongDetails;
+	JFrame frame;
+	JButton loginButton;
+	
+	
+	
+	public String getUsername() {
+<span class="nc" id="L26">		return username.getText();</span>
+	}
+
+	public void setUsername(String username) {
+<span class="fc" id="L30">		this.username.setText(username);</span>
+<span class="fc" id="L31">	}</span>
+
+	public String getPassword() {
+<span class="nc" id="L34">		return password.getText();</span>
+	}
+
+	public void setPassword(String password) {
+<span class="fc" id="L38">		this.password.setText(password);</span>
+		
+<span class="fc" id="L40">	}</span>
+
+	public JButton getLoginButton(){
+<span class="fc" id="L43">		return loginButton;</span>
+	}
+	
+	public String getWrongDetails(){
+<span class="fc" id="L47">		return wrongDetails.getText();</span>
+	}
+	
+	
+	
+	public void setupFrame()
+	{
+		//title of frame
+<span class="fc" id="L55">		frame = new JFrame(&quot;Ticket Management System&quot;);</span>
+		
+		//panel to add labels username &amp; password
+<span class="fc" id="L58">		JPanel userPanel = new JPanel();</span>
+		//panel to add textfields for user input
+<span class="fc" id="L60">	    JPanel usertextFields = new JPanel();</span>
+		//main panel to add the two above
+<span class="fc" id="L62">		JPanel panel = new JPanel();</span>
+				
+		//textfield for user input
+<span class="fc" id="L65">		username = new JTextField(15);</span>
+<span class="fc" id="L66">		password = new JTextField(15);</span>
+		
+		//button for user login
+<span class="fc" id="L69">		loginButton = new JButton(&quot;Login&quot;);</span>
+<span class="fc" id="L70">		titleLabel = new JLabel();</span>
+<span class="fc" id="L71">		JLabel usernameLabel = new JLabel();</span>
+<span class="fc" id="L72">		JLabel passwordLabel = new JLabel();</span>
+<span class="fc" id="L73">		wrongDetails = new JLabel();</span>
+		//set panel to null so we can set it wherever we want
+<span class="fc" id="L75">		panel.setLayout(null);</span>
+		
+		//adding login label and setting up font
+<span class="fc" id="L78">		Font title = titleLabel.getFont().deriveFont(Font.BOLD,26.0f);</span>
+<span class="fc" id="L79">		titleLabel.setFont(title);	</span>
+<span class="fc" id="L80">		titleLabel.setText(&quot;Login Screen&quot;);</span>
+		//set the location of the label and the size.
+<span class="fc" id="L82">		titleLabel.setLocation(90,20);</span>
+<span class="fc" id="L83">		titleLabel.setSize(290,30);</span>
+<span class="fc" id="L84">		titleLabel.setHorizontalAlignment(0);</span>
+		//add it to the panel
+<span class="fc" id="L86">		panel.add(titleLabel);</span>
+		
+		//setting userpanel layout to null so we can give custom position and size for it
+<span class="fc" id="L89">		userPanel.setLayout(null);</span>
+<span class="fc" id="L90">		userPanel.setLocation(60,35);</span>
+<span class="fc" id="L91">		userPanel.setSize(150,200);</span>
+<span class="fc" id="L92">		panel.add(userPanel);</span>
+		
+<span class="fc" id="L94">		usernameLabel.setText(&quot;Username:&quot;);</span>
+<span class="fc" id="L95">		usernameLabel.setLocation(50,35);</span>
+<span class="fc" id="L96">		usernameLabel.setSize(70,80);</span>
+<span class="fc" id="L97">		userPanel.add(usernameLabel);</span>
+		
+<span class="fc" id="L99">		passwordLabel.setText(&quot;Password:&quot;);</span>
+<span class="fc" id="L100">		passwordLabel.setLocation(50,85);</span>
+<span class="fc" id="L101">		passwordLabel.setSize(70,80);</span>
+<span class="fc" id="L102">		userPanel.add(passwordLabel);</span>
+		
+		
+		//setting usertextfield panel layout to null so we can give custom position and size for it
+<span class="fc" id="L106">		usertextFields.setLayout(null);</span>
+<span class="fc" id="L107">		usertextFields.setLocation(180,35);</span>
+<span class="fc" id="L108">		usertextFields.setSize(200,200);</span>
+<span class="fc" id="L109">		panel.add(usertextFields);</span>
+		
+		//setting username textfield layout to null so we can give custom position and size for it
+<span class="fc" id="L112">		username.setLayout(null);</span>
+<span class="fc" id="L113">		username.setSize(200,30);</span>
+<span class="fc" id="L114">		username.setLocation(30,60);</span>
+<span class="fc" id="L115">		usertextFields.add(username);</span>
+		
+		//setting password textfield layout to null so we can give custom position and size for it
+<span class="fc" id="L118">		password.setLayout(null);</span>
+<span class="fc" id="L119">		password.setSize(200,30);</span>
+<span class="fc" id="L120">		password.setLocation(30,110);</span>
+<span class="fc" id="L121">		usertextFields.add(password);</span>
+		
+		//setting custom position and size for login button
+<span class="fc" id="L124">		loginButton.setLocation(180,280);</span>
+<span class="fc" id="L125">		loginButton.setSize(140,50);</span>
+<span class="fc" id="L126">		loginButton.addActionListener(this);</span>
+<span class="fc" id="L127">		panel.add(loginButton);</span>
+		
+		//a label in case a user mistupes login information or user doesn't exist
+<span class="fc" id="L130">		wrongDetails.setText(&quot;&quot;);</span>
+<span class="fc" id="L131">		wrongDetails.setLocation(180,350);</span>
+<span class="fc" id="L132">		wrongDetails.setSize(140,120);</span>
+<span class="fc" id="L133">		panel.add(wrongDetails);</span>
+		
+<span class="fc" id="L135">		frame.getContentPane().add(panel);</span>
+		//set size and visibility of frame
+<span class="fc" id="L137">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L138">		frame.setSize(500,500);</span>
+<span class="fc" id="L139">		frame.setVisible(true);</span>
+		//center frame to computer screen
+<span class="fc" id="L141">		frame.setLocationRelativeTo(null);</span>
+<span class="fc" id="L142">	}</span>
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	
+		//get username and password for JTextFields
+<span class="fc" id="L148">		String _username = username.getText().trim().toString();</span>
+<span class="fc" id="L149">		String _password = password.getText().trim().toString();</span>
+		
+<span class="pc bpc" id="L151" title="2 of 4 branches missed.">		if(_username != null &amp;&amp; _password != null )</span>
+		{
+<span class="fc" id="L153">			SystemInterface system = new SystemInterface();</span>
+			//connect to DB
+<span class="fc" id="L155">			Connection con = DatabaseInteraction.connect();</span>
+			//find if user exists in DB
+<span class="fc" id="L157">			User user = findUserinDB(con,_username);</span>
+			//close DB connection
+<span class="fc" id="L159">			DatabaseInteraction.disconnect(con);</span>
+			//if user exists
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">			if(user.getUsername() != null)</span>
+			{
+				//and user equals with the infomation given
+<span class="pc bpc" id="L164" title="2 of 4 branches missed.">				if(user.getUsername().equals(_username) &amp;&amp; user.getPassword().equals(_password))</span>
+				{
+					//hide login screen
+<span class="fc" id="L167">					frame.setVisible(false);</span>
+					//show system interface screen
+<span class="fc" id="L169">					system.setupInterface(user);</span>
+					
+				}
+<span class="fc" id="L172">			}</span>
+			//else show label Wrong user details!
+			else
+<span class="nc" id="L175">				wrongDetails.setText(&quot;Wrong user details!&quot;);</span>
+			
+<span class="nc" id="L177">		}</span>
+		else
+		{
+<span class="nc" id="L180">			wrongDetails.setText(&quot;Wrong user details!&quot;);</span>
+		}
+		
+<span class="fc" id="L183">	}</span>
+    
+	public User findUserinDB(Connection connection,String username)
+	{
+<span class="fc" id="L187">	User	userFound = new User();</span>
+		
+		try 
+		{
+<span class="fc" id="L191">			String user_name = &quot;&quot;;</span>
+<span class="fc" id="L192">        	String name = &quot;&quot;;</span>
+<span class="fc" id="L193">        	String surname = &quot;&quot;;  </span>
+<span class="fc" id="L194">        	String pass = &quot;&quot;;</span>
+        	Boolean isAdmin, isCashier;
+        	
+			//prepare statement
+<span class="fc" id="L198">        	Statement statement = connection.createStatement(); </span>
+	       
+<span class="fc" id="L200">	        statement.setQueryTimeout(30);  // set timeout to 30 sec.</span>
+	        //select from table users where username = username user input
+<span class="fc" id="L202">	        ResultSet rs = statement.executeQuery(&quot;Select * From Users WHERE username = \&quot;&quot; + username + &quot;\&quot;&quot;);</span>
+	       
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">	        if (statement.execute(&quot;Select * From Users WHERE username = \&quot;&quot; + username + &quot;\&quot;&quot;)) {</span>
+	            //get results
+<span class="fc" id="L206">	        	rs = statement.getResultSet();</span>
+	            //while result set has next add user information
+<span class="fc bfc" id="L208" title="All 2 branches covered.">	        	while(rs.next())</span>
+	            {
+	                        		
+<span class="fc" id="L211">	            	name = rs.getString(&quot;name&quot;);</span>
+<span class="fc" id="L212">	            	surname = rs.getString(&quot;surname&quot;);</span>
+<span class="fc" id="L213">	    			user_name = rs.getString(&quot;username&quot;);</span>
+<span class="fc" id="L214">	    			pass = rs.getString(&quot;password&quot;);</span>
+<span class="fc" id="L215">	    			isAdmin = rs.getBoolean(&quot;isAdmin&quot;);</span>
+<span class="fc" id="L216">	    			isCashier = rs.getBoolean(&quot;isCashier&quot;);</span>
+	            	//if user is an admin instantiate an admin object
+<span class="pc bpc" id="L218" title="1 of 2 branches missed.">            		if(isAdmin)</span>
+	            	{
+<span class="fc" id="L220">            			userFound = new Admin();	</span>
+<span class="fc" id="L221">	            	}</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">	            	else if(isCashier)</span>
+	            	{
+<span class="nc" id="L224">	            		userFound = new Cashier();</span>
+<span class="nc" id="L225">	            	}</span>
+	            	else
+	            	{
+<span class="nc" id="L228">	            		System.out.println(&quot;User not valid!&quot;);</span>
+	            	}
+            		
+<span class="fc" id="L231">            		userFound.setName(name);</span>
+<span class="fc" id="L232">            		userFound.setSurname(surname);</span>
+<span class="fc" id="L233">            		userFound.setUsername(user_name);</span>
+<span class="fc" id="L234">            		userFound.setPassword(pass);</span>
+	            }
+	        }
+<span class="fc" id="L237">		} </span>
+<span class="nc" id="L238">		catch (SQLException e) </span>
+		{
+<span class="nc" id="L240">			e.printStackTrace();</span>
+		} 
+		
+<span class="fc" id="L243">		return userFound;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.0.201210061924</span>LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</div></body></html>

@@ -1,0 +1,192 @@
+
+src/ticketmanagement/Admin.java:8	Avoid unnecessary constructors - the compiler will generate these for you
+src/ticketmanagement/Admin.java:8	Document empty constructor
+src/ticketmanagement/Admin.java:8	It is a good practice to call super() in a constructor
+src/ticketmanagement/Cashier.java:5	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/Cashier.java:7	Avoid variables with short names like id
+src/ticketmanagement/Cashier.java:7	Parameter 'id' is not assigned and could be declared final
+src/ticketmanagement/DatabaseInteraction.java:6	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/ticketmanagement/DatabaseInteraction.java:9	Ensure that resources like this Connection object are closed after use
+src/ticketmanagement/DatabaseInteraction.java:9	Found 'DD'-anomaly for variable 'connection' (lines '9'-'19').
+src/ticketmanagement/DatabaseInteraction.java:16	Local variable 'url' could be declared final
+src/ticketmanagement/DatabaseInteraction.java:17	Local variable 'username' could be declared final
+src/ticketmanagement/DatabaseInteraction.java:18	Local variable 'password' could be declared final
+src/ticketmanagement/DatabaseInteraction.java:20	System.out.print is used
+src/ticketmanagement/DatabaseInteraction.java:26	System.out.print is used
+src/ticketmanagement/DatabaseInteraction.java:31	System.out.print is used
+src/ticketmanagement/DatabaseInteraction.java:32	System.out.print is used
+src/ticketmanagement/DatabaseInteraction.java:37	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/DatabaseInteraction.java:41	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/DatabaseInteraction.java:46	Parameter 'connection' is not assigned and could be declared final
+src/ticketmanagement/DatabaseInteraction.java:57	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/LoginInterface.java:17	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/LoginInterface.java:17	Use explicit scoping instead of the default package private level
+src/ticketmanagement/LoginInterface.java:18	Use explicit scoping instead of the default package private level
+src/ticketmanagement/LoginInterface.java:19	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/LoginInterface.java:19	Use explicit scoping instead of the default package private level
+src/ticketmanagement/LoginInterface.java:20	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/LoginInterface.java:20	Use explicit scoping instead of the default package private level
+src/ticketmanagement/LoginInterface.java:21	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/LoginInterface.java:21	Use explicit scoping instead of the default package private level
+src/ticketmanagement/LoginInterface.java:29	Parameter 'username' is not assigned and could be declared final
+src/ticketmanagement/LoginInterface.java:37	Parameter 'password' is not assigned and could be declared final
+src/ticketmanagement/LoginInterface.java:58	Local variable 'userPanel' could be declared final
+src/ticketmanagement/LoginInterface.java:60	Local variable 'usertextFields' could be declared final
+src/ticketmanagement/LoginInterface.java:62	Local variable 'panel' could be declared final
+src/ticketmanagement/LoginInterface.java:71	Local variable 'usernameLabel' could be declared final
+src/ticketmanagement/LoginInterface.java:72	Local variable 'passwordLabel' could be declared final
+src/ticketmanagement/LoginInterface.java:145	Avoid variables with short names like e
+src/ticketmanagement/LoginInterface.java:145	Parameter 'e' is not assigned and could be declared final
+src/ticketmanagement/LoginInterface.java:151	Avoid if (x != y) ..; else ..;
+src/ticketmanagement/LoginInterface.java:153	Found 'DU'-anomaly for variable 'system' (lines '153'-'183').
+src/ticketmanagement/LoginInterface.java:155	Ensure that resources like this Connection object are closed after use
+src/ticketmanagement/LoginInterface.java:161	Avoid if (x != y) ..; else ..;
+src/ticketmanagement/LoginInterface.java:175	Avoid using if...else statements without curly braces
+src/ticketmanagement/LoginInterface.java:185	Parameter 'connection' is not assigned and could be declared final
+src/ticketmanagement/LoginInterface.java:185	Parameter 'username' is not assigned and could be declared final
+src/ticketmanagement/LoginInterface.java:187	Found 'DD'-anomaly for variable 'userFound' (lines '187'-'220').
+src/ticketmanagement/LoginInterface.java:187	Found 'DD'-anomaly for variable 'userFound' (lines '187'-'224').
+src/ticketmanagement/LoginInterface.java:191	Found 'DD'-anomaly for variable 'user_name' (lines '191'-'213').
+src/ticketmanagement/LoginInterface.java:191	Found 'DU'-anomaly for variable 'user_name' (lines '191'-'244').
+src/ticketmanagement/LoginInterface.java:192	Found 'DD'-anomaly for variable 'name' (lines '192'-'211').
+src/ticketmanagement/LoginInterface.java:192	Found 'DU'-anomaly for variable 'name' (lines '192'-'244').
+src/ticketmanagement/LoginInterface.java:193	Found 'DD'-anomaly for variable 'surname' (lines '193'-'212').
+src/ticketmanagement/LoginInterface.java:193	Found 'DU'-anomaly for variable 'surname' (lines '193'-'244').
+src/ticketmanagement/LoginInterface.java:194	Found 'DD'-anomaly for variable 'pass' (lines '194'-'214').
+src/ticketmanagement/LoginInterface.java:194	Found 'DU'-anomaly for variable 'pass' (lines '194'-'244').
+src/ticketmanagement/LoginInterface.java:198	Ensure that resources like this Statement object are closed after use
+src/ticketmanagement/LoginInterface.java:202	Avoid variables with short names like rs
+src/ticketmanagement/LoginInterface.java:202	Ensure that resources like this ResultSet object are closed after use
+src/ticketmanagement/LoginInterface.java:202	Found 'DD'-anomaly for variable 'rs' (lines '202'-'206').
+src/ticketmanagement/LoginInterface.java:202	Found 'DU'-anomaly for variable 'rs' (lines '202'-'244').
+src/ticketmanagement/LoginInterface.java:216	Found 'DD'-anomaly for variable 'isCashier' (lines '216'-'216').
+src/ticketmanagement/LoginInterface.java:216	Found 'DU'-anomaly for variable 'isCashier' (lines '216'-'244').
+src/ticketmanagement/LoginInterface.java:220	Avoid instantiating new objects inside loops
+src/ticketmanagement/LoginInterface.java:224	Avoid instantiating new objects inside loops
+src/ticketmanagement/LoginInterface.java:228	System.out.print is used
+src/ticketmanagement/LoginInterface.java:240	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/Print.java:3	Abstract classes should be named AbstractXXX
+src/ticketmanagement/PrintTicket.java:8	Parameter 'ticket' is not assigned and could be declared final
+src/ticketmanagement/PrintTicket.java:11	Local variable 'ticketRouteName' could be declared final
+src/ticketmanagement/PrintTicket.java:15	Local variable 'ticketDate' could be declared final
+src/ticketmanagement/PrintTicket.java:19	Local variable 'ticketTime' could be declared final
+src/ticketmanagement/PrintTicket.java:23	Local variable 'ticketSeat' could be declared final
+src/ticketmanagement/PrintTicket.java:24	No need to call String.valueOf to append to a string.
+src/ticketmanagement/PrintTicket.java:27	Avoid variables with short names like ob
+src/ticketmanagement/PrintTicket.java:27	Local variable 'ob' could be declared final
+src/ticketmanagement/Route.java:9	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/Route.java:10	Avoid excessively long variable names like totalNumberOfSeats
+src/ticketmanagement/Route.java:10	Do not use the short type
+src/ticketmanagement/Route.java:12	Avoid variables with short names like r
+src/ticketmanagement/Route.java:12	Parameter 'r' is not assigned and could be declared final
+src/ticketmanagement/Route.java:22	Do not use the short type
+src/ticketmanagement/Route.java:22	Parameter 'seats' is not assigned and could be declared final
+src/ticketmanagement/Route.java:27	Do not use the short type
+src/ticketmanagement/Route.java:37	Ensure that resources like this Connection object are closed after use
+src/ticketmanagement/Route.java:37	Local variable 'con' could be declared final
+src/ticketmanagement/Route.java:39	Ensure that resources like this Statement object are closed after use
+src/ticketmanagement/Route.java:39	Local variable 'statement' could be declared final
+src/ticketmanagement/Route.java:49	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/SystemInterface.java:17	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/SystemInterface.java:17	Use explicit scoping instead of the default package private level
+src/ticketmanagement/SystemInterface.java:18	Found non-transient, non-static member. Please mark as transient or provide accessors.
+src/ticketmanagement/SystemInterface.java:18	Use explicit scoping instead of the default package private level
+src/ticketmanagement/SystemInterface.java:21	Parameter 'user' is not assigned and could be declared final
+src/ticketmanagement/SystemInterface.java:40	Local variable 'window' could be declared final
+src/ticketmanagement/SystemInterface.java:47	Avoid really long methods.
+src/ticketmanagement/SystemInterface.java:47	Avoid unused method parameters such as 'user'.
+src/ticketmanagement/SystemInterface.java:47	Parameter 'user' is not assigned and could be declared final
+src/ticketmanagement/SystemInterface.java:50	Avoid excessively long variable names like panelChooseRouteTicket
+src/ticketmanagement/SystemInterface.java:50	Local variable 'panelChooseRouteTicket' could be declared final
+src/ticketmanagement/SystemInterface.java:51	Avoid excessively long variable names like panelChoosePrintTicket
+src/ticketmanagement/SystemInterface.java:51	Local variable 'panelChoosePrintTicket' could be declared final
+src/ticketmanagement/SystemInterface.java:52	Avoid excessively long variable names like panelChooseAdditionalInfo
+src/ticketmanagement/SystemInterface.java:52	Local variable 'panelChooseAdditionalInfo' could be declared final
+src/ticketmanagement/SystemInterface.java:60	Local variable 'chooseRouteTicket' could be declared final
+src/ticketmanagement/SystemInterface.java:70	Avoid variables with short names like e
+src/ticketmanagement/SystemInterface.java:70	Parameter 'e' is not assigned and could be declared final
+src/ticketmanagement/SystemInterface.java:94	Found 'DD'-anomaly for variable 'seatsNumberLeft' (lines '94'-'100').
+src/ticketmanagement/SystemInterface.java:94	Found 'DD'-anomaly for variable 'seatsNumberLeft' (lines '94'-'100').
+src/ticketmanagement/SystemInterface.java:94	Found 'DD'-anomaly for variable 'seatsNumberLeft' (lines '94'-'100').
+src/ticketmanagement/SystemInterface.java:94	Found 'DD'-anomaly for variable 'seatsNumberLeft' (lines '94'-'100').
+src/ticketmanagement/SystemInterface.java:104	Avoid variables with short names like ob
+src/ticketmanagement/SystemInterface.java:107	Avoid variables with short names like c
+src/ticketmanagement/SystemInterface.java:109	No need to call String.valueOf to append to a string.
+src/ticketmanagement/SystemInterface.java:109	No need to call String.valueOf to append to a string.
+src/ticketmanagement/SystemInterface.java:113	No need to call String.valueOf to append to a string.
+src/ticketmanagement/SystemInterface.java:113	No need to call String.valueOf to append to a string.
+src/ticketmanagement/SystemInterface.java:113	No need to call String.valueOf to append to a string.
+src/ticketmanagement/SystemInterface.java:146	Avoid variables with short names like e
+src/ticketmanagement/SystemInterface.java:146	Parameter 'e' is not assigned and could be declared final
+src/ticketmanagement/SystemInterface.java:154	Found 'DD'-anomaly for variable 'ticketArray' (lines '154'-'157').
+src/ticketmanagement/SystemInterface.java:154	Found 'DD'-anomaly for variable 'ticketArray' (lines '154'-'157').
+src/ticketmanagement/SystemInterface.java:154	Found 'DD'-anomaly for variable 'ticketArray' (lines '154'-'157').
+src/ticketmanagement/SystemInterface.java:154	Found 'DD'-anomaly for variable 'ticketArray' (lines '154'-'157').
+src/ticketmanagement/SystemInterface.java:157	Found 'DD'-anomaly for variable 'ticketArray' (lines '157'-'157').
+src/ticketmanagement/SystemInterface.java:157	Found 'DD'-anomaly for variable 'ticketArray' (lines '157'-'157').
+src/ticketmanagement/SystemInterface.java:157	Found 'DD'-anomaly for variable 'ticketArray' (lines '157'-'157').
+src/ticketmanagement/SystemInterface.java:157	Found 'DD'-anomaly for variable 'ticketArray' (lines '157'-'157').
+src/ticketmanagement/SystemInterface.java:161	Avoid variables with short names like ob
+src/ticketmanagement/SystemInterface.java:179	Avoid excessively long variable names like chooseAdditionalInfo
+src/ticketmanagement/SystemInterface.java:188	Document empty method
+src/ticketmanagement/SystemInterface.java:188	Parameter 'e' is not assigned and could be declared final
+src/ticketmanagement/SystemInterface.java:201	Avoid using implementation types like 'HashMap'; use the interface instead
+src/ticketmanagement/SystemInterface.java:201	Avoid using implementation types like 'HashMap'; use the interface instead
+src/ticketmanagement/SystemInterface.java:207	Ensure that resources like this Connection object are closed after use
+src/ticketmanagement/SystemInterface.java:209	Ensure that resources like this Statement object are closed after use
+src/ticketmanagement/SystemInterface.java:213	Ensure that resources like this ResultSet object are closed after use
+src/ticketmanagement/SystemInterface.java:225	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/SystemInterface.java:229	Avoid unused method parameters such as 'user'.
+src/ticketmanagement/SystemInterface.java:232	Avoid excessively long variable names like panel_addRouteAndSeats
+src/ticketmanagement/SystemInterface.java:265	Do not use the short type
+src/ticketmanagement/SystemInterface.java:302	Ensure that resources like this Connection object are closed after use
+src/ticketmanagement/SystemInterface.java:304	Ensure that resources like this Statement object are closed after use
+src/ticketmanagement/SystemInterface.java:314	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/Ticket.java:17	Avoid variables with short names like r
+src/ticketmanagement/Ticket.java:17	Parameter 'r' is not assigned and could be declared final
+src/ticketmanagement/Ticket.java:27	Avoid variables with short names like d
+src/ticketmanagement/Ticket.java:27	Parameter 'd' is not assigned and could be declared final
+src/ticketmanagement/Ticket.java:36	Avoid variables with short names like t
+src/ticketmanagement/Ticket.java:36	Parameter 't' is not assigned and could be declared final
+src/ticketmanagement/Ticket.java:46	Avoid variables with short names like s
+src/ticketmanagement/Ticket.java:46	Parameter 's' is not assigned and could be declared final
+src/ticketmanagement/Ticket.java:56	Parameter 'totalSeatNumber' is not assigned and could be declared final
+src/ticketmanagement/Ticket.java:61	Ensure that resources like this Connection object are closed after use
+src/ticketmanagement/Ticket.java:61	Local variable 'con' could be declared final
+src/ticketmanagement/Ticket.java:63	Ensure that resources like this Statement object are closed after use
+src/ticketmanagement/Ticket.java:63	Local variable 'statement' could be declared final
+src/ticketmanagement/Ticket.java:73	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/Ticket.java:77	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/ticketmanagement/Ticket.java:77	Avoid using implementation types like 'ArrayList'; use the interface instead
+src/ticketmanagement/Ticket.java:78	Local variable 'ticketSet' could be declared final
+src/ticketmanagement/Ticket.java:81	Ensure that resources like this Connection object are closed after use
+src/ticketmanagement/Ticket.java:81	Local variable 'con' could be declared final
+src/ticketmanagement/Ticket.java:83	Ensure that resources like this Statement object are closed after use
+src/ticketmanagement/Ticket.java:83	Local variable 'statement' could be declared final
+src/ticketmanagement/Ticket.java:87	Avoid variables with short names like rs
+src/ticketmanagement/Ticket.java:87	Ensure that resources like this ResultSet object are closed after use
+src/ticketmanagement/Ticket.java:91	Avoid instantiating new objects inside loops
+src/ticketmanagement/Ticket.java:105	Avoid printStackTrace(); use a logger call instead.
+src/ticketmanagement/TicketManagementSystem.java:3	All methods are static.  Consider using Singleton instead.  Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/ticketmanagement/TicketManagementSystem.java:5	Parameter 'args' is not assigned and could be declared final
+src/ticketmanagement/TicketManagementSystem.java:7	Local variable 'window' could be declared final
+src/ticketmanagement/User.java:14	Parameter 'name' is not assigned and could be declared final
+src/ticketmanagement/User.java:14	Parameter 'surname' is not assigned and could be declared final
+src/ticketmanagement/User.java:14	Parameter 'username' is not assigned and could be declared final
+src/ticketmanagement/User.java:15	Parameter 'password' is not assigned and could be declared final
+src/ticketmanagement/User.java:33	Avoid variables with short names like n
+src/ticketmanagement/User.java:33	Parameter 'n' is not assigned and could be declared final
+src/ticketmanagement/User.java:44	Avoid variables with short names like sn
+src/ticketmanagement/User.java:54	Avoid variables with short names like a
+src/ticketmanagement/User.java:64	Avoid variables with short names like u
+src/ticketmanagement/User.java:84	Avoid variables with short names like e
+test/ticketmanagement/LoginInterfaceTest.java:3	Avoid unused imports such as 'org.junit.Assert'
+test/ticketmanagement/LoginInterfaceTest.java:14	Local variable 'newLoginInterface' could be declared final
+test/ticketmanagement/LoginInterfaceTest.java:21	JUnit assertions should include a message
+test/ticketmanagement/LoginInterfaceTest.java:21	This statement may have some unnecessary parentheses
+test/ticketmanagement/LoginInterfaceTest.java:26	Local variable 'newLoginInterface' could be declared final
+test/ticketmanagement/LoginInterfaceTest.java:28	Ensure that resources like this Connection object are closed after use
+test/ticketmanagement/LoginInterfaceTest.java:28	Local variable 'con' could be declared final
+test/ticketmanagement/LoginInterfaceTest.java:30	Local variable 'registeredUser' could be declared final
+test/ticketmanagement/LoginInterfaceTest.java:32	JUnit assertions should include a message
+test/ticketmanagement/LoginInterfaceTest.java:32	This statement may have some unnecessary parentheses

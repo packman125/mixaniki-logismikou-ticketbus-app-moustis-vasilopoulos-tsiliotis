@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>SystemInterface.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</a> &gt; <a href="../../index.html" class="el_group">TicketManagementSystem</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">ticketmanagement</a> &gt; <span class="el_source">SystemInterface.java</span></div><h1>SystemInterface.java</h1><pre class="source lang-java linenums"><span class="pc" id="L1">package ticketmanagement;</span>
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import javax.swing.*;
+
+<span class="fc" id="L15">public class SystemInterface {</span>
+	
+	JFrame mainFrame;
+<span class="fc" id="L18">	JPanel mainPanel = new JPanel();</span>
+	
+
+	public void setupInterface(User user)
+	{
+		//setup common user interface
+<span class="fc" id="L24">		setupMainFrame(user);</span>
+		
+		//if user is an admin
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">		if(user instanceof Admin)</span>
+		{
+			//setup admin screen
+<span class="fc" id="L30">			setupAdmin(user);</span>
+<span class="fc" id="L31">		}</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">		else if(user instanceof Cashier)</span>
+		{
+			//setup cashier screen
+<span class="nc" id="L35">			setupCashier(user);</span>
+<span class="nc" id="L36">		}</span>
+		//else return to login screen
+		else
+		{
+<span class="nc" id="L40">			LoginInterface window = new LoginInterface();</span>
+<span class="nc" id="L41">			window.setupFrame();</span>
+		}
+		
+<span class="fc" id="L44">	}</span>
+
+	
+	private void setupCashier(User user) 
+	{
+		//instantiate three panels for placing the Cashier functionalities
+<span class="nc" id="L50">		JPanel panelChooseRouteTicket = new JPanel();</span>
+<span class="nc" id="L51">		JPanel panelChoosePrintTicket = new JPanel();</span>
+<span class="nc" id="L52">		JPanel panelChooseAdditionalInfo = new JPanel();</span>
+		
+		//set panel layout to null so we can put a custom size and location for it
+<span class="nc" id="L55">		panelChooseRouteTicket.setLayout(null);</span>
+<span class="nc" id="L56">		panelChooseRouteTicket.setSize(500,150);</span>
+<span class="nc" id="L57">		panelChooseRouteTicket.setLocation(0,10);</span>
+		
+		//set button layout to null so we can put a custom size and location for it
+<span class="nc" id="L60">		JButton chooseRouteTicket = new JButton();</span>
+<span class="nc" id="L61">		chooseRouteTicket.setLayout(null);</span>
+<span class="nc" id="L62">		chooseRouteTicket.setSize(250,70);</span>
+<span class="nc" id="L63">		chooseRouteTicket.setLocation(130,50);</span>
+<span class="nc" id="L64">		chooseRouteTicket.setText(&quot;Choose Route,Ticket,Hour &amp; Date&quot;);</span>
+		
+		//set actionlistener for button
+<span class="nc" id="L67">		chooseRouteTicket.addActionListener(new ActionListener(){</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+<span class="nc" id="L72">				JLabel routeTitle = new JLabel(&quot;Choose Route&quot;);</span>
+				//get registered routes from DB
+<span class="nc" id="L74">				HashMap&lt;String,Integer&gt; routes = populateRoutes();</span>
+				//put route Names to routeSetList
+<span class="nc" id="L76">				Object[] routeSetList =  routes.keySet().toArray();</span>
+<span class="nc" id="L77">				JComboBox&lt;Object&gt; routeList = new JComboBox&lt;Object&gt;(routeSetList);</span>
+				
+				//set up  JSpinner for changing easily Date and Time
+<span class="nc" id="L80">				JLabel dateTitle = new JLabel(&quot;Choose Date&quot;);</span>
+<span class="nc" id="L81">				JSpinner dateSpinner = new JSpinner( new SpinnerDateModel() );</span>
+<span class="nc" id="L82">				JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner,&quot;d:M:y&quot;);</span>
+<span class="nc" id="L83">				dateSpinner.setEditor(dateEditor);</span>
+<span class="nc" id="L84">				dateSpinner.setValue(new Date());</span>
+							
+<span class="nc" id="L86">				JLabel timeTitle = new JLabel(&quot;Choose Time&quot;);</span>
+<span class="nc" id="L87">				JSpinner timeSpinner = new JSpinner( new SpinnerDateModel() );</span>
+<span class="nc" id="L88">				JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, &quot;HH:mm:ss&quot;);</span>
+<span class="nc" id="L89">				timeSpinner.setEditor(timeEditor);</span>
+<span class="nc" id="L90">				timeSpinner.setValue(new Date());</span>
+				
+				//TextField for entering seatNumber
+<span class="nc" id="L93">				JTextField seatNumber = new JTextField();</span>
+<span class="nc" id="L94">				int seatsNumberLeft = 0;			</span>
+				//get route total number of seats
+<span class="nc" id="L96">				String route = routeList.getSelectedItem().toString();</span>
+				//if it exists on hash map then get the number of seats left
+<span class="nc bnc" id="L98" title="All 2 branches missed.">				if(routes.containsKey(route))</span>
+				{
+<span class="nc" id="L100">					seatsNumberLeft = routes.get(route);</span>
+				}
+<span class="nc" id="L102">				JLabel seatTitle = new JLabel(&quot;Choose Seat Number: there are &quot; + seatsNumberLeft +&quot; left&quot;);</span>
+				//object array that sets up all JLabel, JButton etc and puts it on JOptionPane
+<span class="nc" id="L104">				Object[] ob = {routeTitle,routeList,dateTitle,dateSpinner,timeTitle,timeSpinner,seatTitle,seatNumber};</span>
+				//Format time to HH:MM
+<span class="nc" id="L106">				Date time = (Date) timeSpinner.getValue();</span>
+<span class="nc" id="L107">				Calendar c = Calendar.getInstance();</span>
+<span class="nc" id="L108">				c.setTime(time);</span>
+<span class="nc" id="L109">				String time_parsed = String.valueOf(c.get(Calendar.HOUR))+ &quot;:&quot; + String.valueOf(c.get(Calendar.MINUTE));</span>
+				//Format date to dd/mm/yyyy
+<span class="nc" id="L111">				Date date = (Date)dateSpinner.getValue();</span>
+<span class="nc" id="L112">				c.setTime(date);</span>
+<span class="nc" id="L113">				String date_parsed = String.valueOf(c.get(Calendar.DAY_OF_MONTH))+ &quot;/&quot; + String.valueOf(c.get(Calendar.MONTH))+ &quot;/&quot;  + String.valueOf(c.get(Calendar.YEAR));</span>
+				//Show JOptionPAne
+<span class="nc" id="L115">				JOptionPane.showConfirmDialog(null, ob, &quot;Insert Ticket Infomation Please&quot;, JOptionPane.OK_CANCEL_OPTION);</span>
+				
+				//get ticket information and put it in a ticket object
+<span class="nc" id="L118">				Ticket ticket = new Ticket();</span>
+<span class="nc" id="L119">				ticket.setRouteName(routeList.getSelectedItem().toString());</span>
+<span class="nc" id="L120">				ticket.setTime(time_parsed);</span>
+<span class="nc" id="L121">				ticket.setDate(date_parsed);</span>
+<span class="nc" id="L122">				ticket.setSeatNumber(Integer.parseInt(seatNumber.getText()));</span>
+				//insert Ticket to Database
+<span class="nc" id="L124">				ticket.insertTicket(seatsNumberLeft);</span>
+<span class="nc" id="L125">				}});</span>
+		
+		//add button to panel
+<span class="nc" id="L128">		panelChooseRouteTicket.add(chooseRouteTicket);</span>
+		
+		//set panel layout to null so we can put a custom size and location for it	
+<span class="nc" id="L131">		panelChoosePrintTicket.setLayout(null);</span>
+<span class="nc" id="L132">		panelChoosePrintTicket.setSize(500,150);</span>
+<span class="nc" id="L133">		panelChoosePrintTicket.setLocation(0,160);</span>
+		
+		//set panel button to null so we can put a custom size and location for it
+<span class="nc" id="L136">		JButton choosePrintTicket = new JButton();</span>
+<span class="nc" id="L137">		choosePrintTicket.setLayout(null);</span>
+<span class="nc" id="L138">		choosePrintTicket.setSize(250,70);</span>
+<span class="nc" id="L139">		choosePrintTicket.setLocation(130,50);</span>
+<span class="nc" id="L140">		choosePrintTicket.setText(&quot;Print Ticket&quot;);</span>
+		
+		//set actionlistener for printing ticket button
+<span class="nc" id="L143">		choosePrintTicket.addActionListener(new ActionListener(){</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//setup a title
+<span class="nc" id="L148">				JLabel title = new JLabel();</span>
+<span class="nc" id="L149">				title.setText(&quot;Choose one ticket to print.&quot;);</span>
+				
+<span class="nc" id="L151">				Ticket ticket = new Ticket();</span>
+				//get availiable tickets from DB
+<span class="nc" id="L153">				ArrayList&lt;Ticket&gt; tickets = ticket.getTicket();</span>
+<span class="nc" id="L154">				Ticket[] ticketArray = new Ticket[tickets.size()];</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">				for(int i=0; i &lt; tickets.size();i++)</span>
+				{
+<span class="nc" id="L157">					ticketArray[i] = tickets.get(i);</span>
+				}
+				
+<span class="nc" id="L160">				JComboBox&lt;Ticket&gt; ticketList = new JComboBox&lt;Ticket&gt;(ticketArray);</span>
+<span class="nc" id="L161">				Object[] ob = {title,ticketList};</span>
+				
+<span class="nc" id="L163">				JOptionPane.showConfirmDialog(null, ob, &quot;Print Ticket&quot;, JOptionPane.OK_CANCEL_OPTION);</span>
+				//instantiate PrintTicket
+<span class="nc" id="L165">				PrintTicket printTicket = new PrintTicket();</span>
+				//print selected ticket from JComboBox
+<span class="nc" id="L167">				printTicket.printSelectedItem((Ticket)ticketList.getSelectedItem());</span>
+				
+<span class="nc" id="L169">			}});</span>
+		//add button to panel
+<span class="nc" id="L171">		panelChoosePrintTicket.add(choosePrintTicket);</span>
+		
+		//set panel layout to null so we can put a custom size and location for it
+<span class="nc" id="L174">		panelChooseAdditionalInfo.setLayout(null);</span>
+<span class="nc" id="L175">		panelChooseAdditionalInfo.setSize(500,150);</span>
+<span class="nc" id="L176">		panelChooseAdditionalInfo.setLocation(0,310);</span>
+		
+		//set button layout to null so we can put a custom size and location for it
+<span class="nc" id="L179">		JButton chooseAdditionalInfo = new JButton();</span>
+<span class="nc" id="L180">		chooseAdditionalInfo.setLayout(null);</span>
+<span class="nc" id="L181">		chooseAdditionalInfo.setSize(250,70);</span>
+<span class="nc" id="L182">		chooseAdditionalInfo.setLocation(130,50);</span>
+<span class="nc" id="L183">		chooseAdditionalInfo.setText(&quot;Print Additional Info&quot;);</span>
+		//actionlistener for printing additional info
+<span class="nc" id="L185">		chooseAdditionalInfo.addActionListener(new ActionListener(){</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+<span class="nc" id="L190">			}});</span>
+		
+		//add button to panel
+<span class="nc" id="L193">		panelChooseAdditionalInfo.add(chooseAdditionalInfo);</span>
+		
+<span class="nc" id="L195">		mainFrame.getContentPane().add(panelChooseRouteTicket);</span>
+<span class="nc" id="L196">		mainFrame.getContentPane().add(panelChoosePrintTicket);</span>
+<span class="nc" id="L197">		mainFrame.getContentPane().add(panelChooseAdditionalInfo);</span>
+<span class="nc" id="L198">		mainFrame.getContentPane().add(mainPanel);</span>
+<span class="nc" id="L199">	}</span>
+
+	private HashMap&lt;String, Integer&gt; populateRoutes() {
+<span class="nc" id="L202">		HashMap&lt;String,Integer&gt; routeMap = new HashMap&lt;String,Integer&gt;();</span>
+		
+		try
+		{
+			//open up connection to DB
+<span class="nc" id="L207">			Connection con = DatabaseInteraction.connect();</span>
+			
+<span class="nc" id="L209">			Statement statement = con.createStatement(); </span>
+		       
+<span class="nc" id="L211">	        statement.setQueryTimeout(30);  // set timeout to 30 sec.</span>
+	        //get result set with routes table information
+<span class="nc" id="L213">	        ResultSet rs = statement.executeQuery(&quot;Select * From Routes&quot;);</span>
+	        
+<span class="nc bnc" id="L215" title="All 2 branches missed.">	        while(rs.next())</span>
+	        {	
+	        	//add to Hash map routeName and totalNumberOfSeats infomation
+<span class="nc" id="L218">	        	routeMap.put(rs.getString(&quot;routeName&quot;), rs.getInt(&quot;totalNumberOfSeats&quot;));</span>
+	        }
+	        //close connection to DB      	       
+<span class="nc" id="L221">	        DatabaseInteraction.disconnect(con);</span>
+<span class="nc" id="L222">		}</span>
+<span class="nc" id="L223">		catch (SQLException e)</span>
+		{
+<span class="nc" id="L225">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L227">		return routeMap;</span>
+	}
+	private void setupAdmin(User user) 
+	{
+		//setup panels
+<span class="fc" id="L232">		JPanel panel_addRouteAndSeats = new JPanel();</span>
+<span class="fc" id="L233">		JPanel panel_addAnnouncement = new JPanel();</span>
+<span class="fc" id="L234">		JPanel mainPanel = new JPanel();</span>
+		
+		//set panel layout to null so we can put a custom size and location for it
+<span class="fc" id="L237">		panel_addRouteAndSeats.setLayout(null);</span>
+<span class="fc" id="L238">		panel_addRouteAndSeats.setLocation(0,10);</span>
+<span class="fc" id="L239">		panel_addRouteAndSeats.setSize(500,250);</span>
+		
+		//set panel layout to null so we can put a custom size and location for it
+<span class="fc" id="L242">		panel_addAnnouncement.setLayout(null);</span>
+<span class="fc" id="L243">		panel_addAnnouncement.setLocation(0,260);</span>
+<span class="fc" id="L244">		panel_addAnnouncement.setSize(500,150);</span>
+		
+		//set button layout to null so we can put a custom size and location for it
+<span class="fc" id="L247">		JButton addRouteAndSeats = new JButton();</span>
+<span class="fc" id="L248">		addRouteAndSeats.setLayout(null);</span>
+<span class="fc" id="L249">		addRouteAndSeats.setSize(250,100);</span>
+<span class="fc" id="L250">		addRouteAndSeats.setLocation(125,75);</span>
+<span class="fc" id="L251">		addRouteAndSeats.setText(&quot;Add Route and Total Number of Seats&quot;);</span>
+		//add button to panel
+<span class="fc" id="L253">		panel_addRouteAndSeats.add(addRouteAndSeats);</span>
+		
+<span class="fc" id="L255">		addRouteAndSeats.addActionListener(new ActionListener(){</span>
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//admin enters routeName and number of seats info
+<span class="nc" id="L259">				String route = JOptionPane.showInputDialog(null, &quot;Enter Route: &quot;, &quot;&quot;, 1);</span>
+<span class="nc" id="L260">				String numberOfSeats = JOptionPane.showInputDialog(null, &quot;Enter Number Of Seats: &quot;, &quot;&quot;, 1);</span>
+				
+				//create a route object and assign the values
+<span class="nc" id="L263">				Route r = new Route();</span>
+<span class="nc" id="L264">				r.setRoute(route);</span>
+<span class="nc" id="L265">				short totalNumber = Short.parseShort(numberOfSeats);</span>
+<span class="nc" id="L266">				r.setTotalNumberOfSeats(totalNumber);</span>
+				//insert route to DB
+<span class="nc" id="L268">				r.insertRoute();			</span>
+<span class="nc" id="L269">			}});</span>
+		
+		//set button layout to null so we can put a custom size and location for it
+<span class="fc" id="L272">		JButton addAnnouncement = new JButton();</span>
+<span class="fc" id="L273">		addAnnouncement.setLayout(null);</span>
+<span class="fc" id="L274">		addAnnouncement.setSize(200,80);</span>
+<span class="fc" id="L275">		addAnnouncement.setLocation(140,35);</span>
+<span class="fc" id="L276">		addAnnouncement.setText(&quot;Add Announcement&quot;);</span>
+		//add button to panel
+<span class="fc" id="L278">		panel_addAnnouncement.add(addAnnouncement);</span>
+		//add actionlister for adding an announcement
+<span class="fc" id="L280">		addAnnouncement.addActionListener(new ActionListener(){</span>
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//add label title and textfield for inserting a title
+<span class="nc" id="L284">				JLabel title = new JLabel(&quot;Add Title&quot;);</span>
+<span class="nc" id="L285">				JTextField titleText = new JTextField();</span>
+				//body of announcement title and textarea
+<span class="nc" id="L287">				JLabel body = new JLabel(&quot;Body&quot;);</span>
+<span class="nc" id="L288">				JTextArea bodyText = new JTextArea(15,30);</span>
+				
+<span class="nc" id="L290">				Object[] ob = {title,titleText,body,bodyText};</span>
+				
+<span class="nc" id="L292">				 JOptionPane.showConfirmDialog(null, ob, &quot;Please Add an Announcement&quot;, JOptionPane.OK_CANCEL_OPTION);</span>
+				 //insert Annoucement to DB
+<span class="nc" id="L294">				 insertAnnouncement(titleText.getText(),bodyText.getText());</span>
+<span class="nc" id="L295">			}</span>
+
+			private void insertAnnouncement(String title, String body) {
+				
+				try
+				{
+					//open connection to DB
+<span class="nc" id="L302">					Connection con = DatabaseInteraction.connect();</span>
+					
+<span class="nc" id="L304">					Statement statement = con.createStatement(); </span>
+				       
+<span class="nc" id="L306">			        statement.setQueryTimeout(30);  // set timeout to 30 sec.</span>
+			        //insert info to annoucement table
+<span class="nc" id="L308">			        statement.executeUpdate(&quot;Insert INTO announcement (title,body) Values ( '&quot; +  title + &quot;', '&quot; + body + &quot;')&quot;);</span>
+			        //close DB connection
+<span class="nc" id="L310">			        DatabaseInteraction.disconnect(con);</span>
+<span class="nc" id="L311">				}</span>
+<span class="nc" id="L312">				catch (SQLException e)</span>
+				{
+<span class="nc" id="L314">					e.printStackTrace();</span>
+				}
+				
+<span class="nc" id="L317">			}});</span>
+		
+<span class="fc" id="L319">		mainFrame.getContentPane().add(panel_addRouteAndSeats);</span>
+<span class="fc" id="L320">		mainFrame.getContentPane().add(panel_addAnnouncement);</span>
+<span class="fc" id="L321">		mainFrame.getContentPane().add(mainPanel);</span>
+<span class="fc" id="L322">	}</span>
+
+
+	public void setupMainFrame(User user)
+	{
+<span class="fc" id="L327">		mainFrame = new JFrame();</span>
+	    
+<span class="fc" id="L329">		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L330">		mainFrame.setSize(500,500);</span>
+<span class="fc" id="L331">		mainFrame.setVisible(true);</span>
+<span class="fc" id="L332">		mainFrame.setLocationRelativeTo(null);</span>
+<span class="fc" id="L333">		JPanel messagepanel = new JPanel();</span>
+<span class="fc" id="L334">		messagepanel.setLayout(null);</span>
+<span class="fc" id="L335">		messagepanel.setLocation(0,0);</span>
+<span class="fc" id="L336">		messagepanel.setSize(500,40);</span>
+		
+<span class="fc" id="L338">		JLabel message = new JLabel();</span>
+		//add logout button
+<span class="fc" id="L340">		JButton logout = new JButton();</span>
+<span class="fc" id="L341">		logout.setLayout(null);</span>
+<span class="fc" id="L342">		logout.setLocation(400,10);</span>
+<span class="fc" id="L343">		logout.setSize(80,20);</span>
+<span class="fc" id="L344">		logout.setText(&quot;Logout&quot;);</span>
+		
+		//actionlistener of logout button
+<span class="fc" id="L347">		logout.addActionListener(new ActionListener(){</span>
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//if logout button is pressed hide mainFrame
+<span class="nc" id="L352">				mainFrame.setVisible(false);</span>
+				//return to login screen
+<span class="nc" id="L354">				LoginInterface login = new LoginInterface();</span>
+<span class="nc" id="L355">				login.setupFrame();</span>
+				
+<span class="nc" id="L357">			}});</span>
+<span class="fc" id="L358">		message.setLayout(null);</span>
+<span class="fc" id="L359">		message.setLocation(2,10);</span>
+<span class="fc" id="L360">		message.setSize(250,20);</span>
+		
+<span class="fc" id="L362">		message.setText(&quot;Welcome, &quot;+ user.getName() + &quot; &quot; + user.getSurname());</span>
+<span class="fc" id="L363">		messagepanel.add(message);</span>
+<span class="fc" id="L364">		messagepanel.add(logout);</span>
+<span class="fc" id="L365">		mainFrame.getContentPane().add(messagepanel);</span>
+		
+<span class="fc" id="L367">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.0.201210061924</span>LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</div></body></html>

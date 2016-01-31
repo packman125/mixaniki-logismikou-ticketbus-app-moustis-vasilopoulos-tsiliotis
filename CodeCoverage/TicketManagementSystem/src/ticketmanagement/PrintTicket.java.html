@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>PrintTicket.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</a> &gt; <a href="../../index.html" class="el_group">TicketManagementSystem</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">ticketmanagement</a> &gt; <span class="el_source">PrintTicket.java</span></div><h1>PrintTicket.java</h1><pre class="source lang-java linenums">package ticketmanagement;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+<span class="nc" id="L6">public class PrintTicket extends Print{</span>
+
+	public void printSelectedItem(Ticket ticket) 
+	{
+		//label for routename
+<span class="nc" id="L11">		JLabel ticketRouteName = new JLabel();</span>
+<span class="nc" id="L12">		ticketRouteName.setText(&quot;Route: &quot; + ticket.getRouteName());</span>
+		
+		//label for date
+<span class="nc" id="L15">		JLabel ticketDate = new JLabel();</span>
+<span class="nc" id="L16">		ticketDate.setText(&quot;Date: &quot; + ticket.getDate());</span>
+		
+		//label for time
+<span class="nc" id="L19">		JLabel ticketTime = new JLabel();</span>
+<span class="nc" id="L20">		ticketTime.setText(&quot;Time: &quot; + ticket.getTime());</span>
+		
+		//label for seat
+<span class="nc" id="L23">		JLabel ticketSeat = new JLabel();</span>
+<span class="nc" id="L24">		ticketSeat.setText(&quot;Seat #: &quot; + String.valueOf(ticket.getSeatNumber()));</span>
+		
+		
+<span class="nc" id="L27">		Object[] ob = {ticketRouteName,ticketDate,ticketTime,ticketSeat};</span>
+<span class="nc" id="L28">		JOptionPane.showConfirmDialog(null, ob, &quot;Print Ticket&quot;, JOptionPane.PLAIN_MESSAGE);</span>
+		
+		
+<span class="nc" id="L31">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.0.201210061924</span>LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</div></body></html>

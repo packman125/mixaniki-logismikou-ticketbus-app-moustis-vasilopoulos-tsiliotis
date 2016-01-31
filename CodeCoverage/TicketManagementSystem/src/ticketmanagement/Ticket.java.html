@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../.resources/report.gif" type="image/gif"/><title>Ticket.java</title><link rel="stylesheet" href="../../../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../../../.sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</a> &gt; <a href="../../index.html" class="el_group">TicketManagementSystem</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.html" class="el_package">ticketmanagement</a> &gt; <span class="el_source">Ticket.java</span></div><h1>Ticket.java</h1><pre class="source lang-java linenums">package ticketmanagement;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+<span class="nc" id="L9">public class Ticket {</span>
+	
+	private String routeName;
+	private String time;
+	private String date;
+	private int seatNumber;
+	
+
+	public void setRouteName(String r)
+	{
+<span class="nc" id="L19">		routeName = r;</span>
+<span class="nc" id="L20">	}</span>
+
+	public String getRouteName()
+	{
+<span class="nc" id="L24">		return routeName;</span>
+	}
+	
+	public void setDate(String d)
+	{
+<span class="nc" id="L29">		date = d;</span>
+<span class="nc" id="L30">	}</span>
+	
+	public String getDate()
+	{
+<span class="nc" id="L34">		return date;</span>
+	}
+	public void setTime(String t)
+	{
+<span class="nc" id="L38">		time = t;</span>
+<span class="nc" id="L39">	}</span>
+	
+	public String getTime()
+	{
+<span class="nc" id="L43">		return time;</span>
+	}
+	
+	public void setSeatNumber(int s)
+	{
+<span class="nc" id="L48">		seatNumber = s;</span>
+<span class="nc" id="L49">	}</span>
+	
+	public int getSeatNumber()
+	{
+<span class="nc" id="L53">		return seatNumber;</span>
+	}
+	
+	protected void insertTicket(int totalSeatNumber) 
+	{
+			
+        try 
+        {
+<span class="nc" id="L61">        	Connection con = DatabaseInteraction.connect();</span>
+			
+<span class="nc" id="L63">			Statement statement = con.createStatement(); </span>
+		       
+<span class="nc" id="L65">	        statement.setQueryTimeout(30);  // set timeout to 30 sec.</span>
+	        
+<span class="nc" id="L67">			statement.executeUpdate(&quot;Insert INTO tickets (routeName,date,time,seat) Values ( '&quot; +  routeName + &quot;','&quot; + date + &quot;','&quot; + time + &quot;',&quot; + seatNumber + &quot;)&quot;);</span>
+			
+<span class="nc" id="L69">			statement.executeUpdate(&quot;Update routes SET totalNumberOfSeats = '&quot; + (totalSeatNumber - 1) + &quot;'&quot; + &quot;Where routeName = &quot; + &quot;\&quot;&quot; + routeName + &quot;\&quot;&quot;);</span>
+<span class="nc" id="L70">		} </span>
+<span class="nc" id="L71">        catch (SQLException e) </span>
+        {
+<span class="nc" id="L73">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L75">	}</span>
+
+	protected ArrayList&lt;Ticket&gt; getTicket() {
+<span class="nc" id="L78">		ArrayList&lt;Ticket&gt; ticketSet = new ArrayList&lt;Ticket&gt;();</span>
+		try 
+	        {
+<span class="nc" id="L81">	        	Connection con = DatabaseInteraction.connect();</span>
+				
+<span class="nc" id="L83">				Statement statement = con.createStatement(); </span>
+			    
+<span class="nc" id="L85">				 statement.setQueryTimeout(30);  // set timeout to 30 sec.</span>
+		        
+<span class="nc" id="L87">		        ResultSet rs = statement.executeQuery(&quot;Select * From Tickets&quot;);</span>
+		        
+<span class="nc bnc" id="L89" title="All 2 branches missed.">		        while(rs.next())</span>
+		        {
+<span class="nc" id="L91">		        	Ticket ticket = new Ticket();</span>
+				    
+<span class="nc" id="L93">		        	ticket.setRouteName(rs.getString(&quot;routeName&quot;));</span>
+<span class="nc" id="L94">		        	ticket.setDate(rs.getString(&quot;date&quot;));</span>
+<span class="nc" id="L95">		        	ticket.setTime(rs.getString(&quot;time&quot;));</span>
+<span class="nc" id="L96">		        	ticket.setSeatNumber(rs.getInt(&quot;seat&quot;));</span>
+		        	
+<span class="nc" id="L98">		        	ticketSet.add(ticket);</span>
+		        	
+		        }
+		        
+<span class="nc" id="L102">			} </span>
+<span class="nc" id="L103">	        catch (SQLException e) </span>
+	        {
+<span class="nc" id="L105">				e.printStackTrace();</span>
+			}
+		
+<span class="nc" id="L108">		return ticketSet;</span>
+	}
+	
+	
+    @Override
+    public String toString() {
+        
+<span class="nc" id="L115">    	String label = &quot;Route: &quot; + routeName + &quot; Date: &quot; + date + &quot; Time: &quot; + time + &quot; Seat: &quot; + seatNumber;</span>
+    	
+<span class="nc" id="L117">    	return label;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.0.201210061924</span>LoginInterfaceTest (1) (25 Δεκ 2015 9:15:31 μμ)</div></body></html>
